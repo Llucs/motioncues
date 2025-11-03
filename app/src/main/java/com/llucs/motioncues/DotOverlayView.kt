@@ -8,12 +8,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 import kotlin.math.sqrt
 import kotlin.random.Random
 
+// Interface que define os sensores
+interface SensorDetector {
+    fun isGyroAvailable(): Boolean
+    fun isAccelerometerAvailable(): Boolean
+    fun getSensorData(): FloatArray
+}
+
+// Classe representando cada bolinha
 data class Dot(
     val id: Int,
     var x: Float,
@@ -26,6 +33,8 @@ data class Dot(
     var accelerationY: Float = 0f
 )
 
+enum class DotSize(val value: Int) { SMALL(1), MEDIUM(2), LARGE(3) }
+
 @Composable
 fun DotOverlayView(
     dotColor: Long,
@@ -37,25 +46,23 @@ fun DotOverlayView(
     if (!isEffectActive) return
 
     val context = LocalContext.current
-    val density = LocalDensity.current.density
     val dotRadiusDp = when (dotSize) {
         DotSize.SMALL.value -> 4.dp
         DotSize.MEDIUM.value -> 8.dp
         DotSize.LARGE.value -> 12.dp
         else -> 8.dp
     }
-    val dotRadiusPx = with(LocalDensity.current) { dotRadiusDp.toPx() }
+    val dotRadiusPx = with(LocalContext.current.resources.displayMetrics) {
+        dotRadiusDp.value * density
+    }
     val color = Color(dotColor.toULong())
 
     val dots = remember { mutableStateListOf<Dot>() }
     var canvasWidth by remember { mutableStateOf(0f) }
     var canvasHeight by remember { mutableStateOf(0f) }
 
-    // Dados do sensor
-    val accelerometerData by remember { mutableStateOf(FloatArray(3)) }
-    var gyroAvailable by remember { mutableStateOf(true) }
-
     // Verificar sensores disponíveis
+    var gyroAvailable by remember { mutableStateOf(true) }
     LaunchedEffect(sensorDetector) {
         try {
             sensorDetector?.let {
@@ -96,13 +103,11 @@ fun DotOverlayView(
             if (canvasWidth > 0 && canvasHeight > 0) {
                 dots.forEach { dot ->
                     try {
-                        // Aplicar aceleração baseada em sensores
-                        val accelScale = 0.1f
                         val sensorData = sensorDetector?.getSensorData() ?: floatArrayOf(0f, 0f, 0f)
+                        val accelScale = 0.1f
                         dot.accelerationX = (sensorData[0] / 10f) * accelScale
                         dot.accelerationY = (sensorData[1] / 10f) * accelScale
 
-                        // Atualizar velocidade com aceleração
                         dot.velocityX += dot.accelerationX
                         dot.velocityY += dot.accelerationY
 
@@ -124,7 +129,7 @@ fun DotOverlayView(
                         dot.x += dot.velocityX
                         dot.y += dot.velocityY
 
-                        // Colisão com as bordas
+                        // Colisão com bordas
                         if (dot.x - dot.radius < 0) {
                             dot.x = dot.radius
                             dot.velocityX = -dot.velocityX * 0.8f
@@ -144,7 +149,6 @@ fun DotOverlayView(
                         dot.velocityX += Random.nextFloat() * 0.05f - 0.025f
                         dot.velocityY += Random.nextFloat() * 0.05f - 0.025f
                     } catch (e: Exception) {
-                        // Se algum erro acontecer, não fecha o app
                         Toast.makeText(context, "Erro nas bolinhas: ${e.message}", Toast.LENGTH_SHORT).show()
                     }
                 }
