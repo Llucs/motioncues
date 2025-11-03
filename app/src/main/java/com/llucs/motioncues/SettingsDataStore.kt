@@ -6,6 +6,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
+import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -19,7 +20,7 @@ class SettingsDataStore(private val context: Context) {
     private val DOT_COLOR_KEY = intPreferencesKey(Constants.KEY_DOT_COLOR)
     private val DOT_COUNT_KEY = intPreferencesKey(Constants.KEY_DOT_COUNT)
     private val DOT_SIZE_KEY = intPreferencesKey(Constants.KEY_DOT_SIZE)
-    private val EFFECT_ACTIVE_KEY = stringPreferencesKey(Constants.KEY_EFFECT_ACTIVE) // Usando String para simular Boolean, pois DataStore não tem BooleanKey
+    private val EFFECT_ACTIVE_KEY = booleanPreferencesKey(Constants.KEY_EFFECT_ACTIVE) // Agora é boolean
 
     // Flow para ler o modo de ativação
     val activationModeFlow: Flow<String> = context.dataStore.data
@@ -48,7 +49,7 @@ class SettingsDataStore(private val context: Context) {
     // Flow para ler o estado do efeito (ativo/inativo)
     val effectActiveFlow: Flow<Boolean> = context.dataStore.data
         .map { preferences ->
-            (preferences[EFFECT_ACTIVE_KEY] ?: "false").toBoolean()
+            preferences[EFFECT_ACTIVE_KEY] ?: false
         }
 
     // Salvar o modo de ativação
@@ -82,7 +83,7 @@ class SettingsDataStore(private val context: Context) {
     // Salvar o estado do efeito (ativo/inativo)
     suspend fun saveEffectActive(isActive: Boolean) {
         context.dataStore.edit { preferences ->
-            preferences[EFFECT_ACTIVE_KEY] = isActive.toString()
+            preferences[EFFECT_ACTIVE_KEY] = isActive
         }
     }
 }
