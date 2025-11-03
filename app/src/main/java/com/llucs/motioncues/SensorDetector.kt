@@ -34,23 +34,18 @@ class SensorDetector(private val context: Context) : SensorEventListener {
     private val _isMovingInVehicle = MutableStateFlow(false)
     val isMovingInVehicle: StateFlow<Boolean> = _isMovingInVehicle
 
-    // Fluxos de dados dos sensores para uso em outras partes do app
+    // Dados dos sensores
     private val _accelerometerData = MutableStateFlow(FloatArray(3))
-    val accelerometerData: StateFlow<FloatArray> = _accelerometerData
-
     private val _gyroscopeData = MutableStateFlow(FloatArray(3))
-    val gyroscopeData: StateFlow<FloatArray> = _gyroscopeData
 
     private var lastLocation: Location? = null
     private var vehicleDetectionStartTime: Long = 0
     private var lastVehicleDetectionTime: Long = 0
 
-    // Variáveis para análise de aceleração e vibração
     private var accelerationMagnitudeHistory = mutableListOf<Float>()
     private var gyroMagnitudeHistory = mutableListOf<Float>()
-    private val maxHistorySize = 30 // Manter histórico dos últimos 30 eventos
+    private val maxHistorySize = 30
 
-    // Callback de Localização
     private val locationCallback = object : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult) {
             locationResult.lastLocation?.let { location ->
@@ -60,24 +55,26 @@ class SensorDetector(private val context: Context) : SensorEventListener {
         }
     }
 
-    fun startDetection() {
-        // Registrar listeners dos sensores com frequência mais alta para melhor detecção
-        accelerometer?.let {
-            sensorManager.registerListener(this, it, SensorManager.SENSOR_DELAY_GAME)
-        }
-        gyroscope?.let {
-            sensorManager.registerListener(this, it, SensorManager.SENSOR_DELAY_GAME)
-        }
-        linearAcceleration?.let {
-            sensorManager.registerListener(this, it, SensorManager.SENSOR_DELAY_GAME)
-        }
+    // ======= Métodos públicos para o DotOverlayView =======
+    fun isGyroAvailable(): Boolean = gyroscope != null
+    fun isAccelerometerAvailable(): Boolean = accelerometer != null
+    fun getSensorData(): FloatArray {
+        val accel = _accelerometerData.value
+        val gyro = _gyroscopeData.value
+        // Retorna X/Y do acelerômetro e Z do giroscópio
+        return floatArrayOf(accel[0], accel[1], gyro[2])
+    }
 
-        // Iniciar atualização de localização se a permissão for concedida
+    // ======= Iniciar e parar detecção =======
+    fun startDetection() {
+        accelerometer?.let { sensorManager.registerListener(this, it, SensorManager.SENSOR_DELAY_GAME) }
+        gyroscope?.let { sensorManager.registerListener(this, it, SensorManager.SENSOR_DELAY_GAME) }
+        linearAcceleration?.let { sensorManager.registerListener(this, it, SensorManager.SENSOR_DELAY_GAME) }
+
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             val locationRequest = LocationRequest.Builder(Priority.PRIORITY_BALANCED_POWER_ACCURACY, 5000)
                 .setMinUpdateIntervalMillis(3000)
                 .build()
-
             fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.getMainLooper())
         }
     }
@@ -88,34 +85,25 @@ class SensorDetector(private val context: Context) : SensorEventListener {
         _isMovingInVehicle.value = false
     }
 
-    // Lógica de detecção de movimento de veículo com múltiplos critérios
+    // ======= Lógica de detecção de veículo =======
     private fun checkVehicleMovement() {
         val speedMps = lastLocation?.speed ?: 0f
         val speedKmh = speedMps * 3.6
 
-        // Critério 1: Velocidade acima do limiar (> 8 km/h)
         val isSpeeding = speedKmh >= Constants.VEHICLE_SPEED_THRESHOLD_KMH
-
-        // Critério 2: Análise de vibração/aceleração lateral (padrão típico de veículo)
         val hasVehicleVibrationPattern = analyzeVibrationPattern()
+        val isContinuousMovement = speedKmh > 0.5f
 
-        // Critério 3: Movimento contínuo (não parado)
-        val isContinuousMovement = speedKmh > 0.5f // Pelo menos um pequeno movimento
-
-        // Combinação de critérios: velocidade + padrão de vibração + movimento contínuo
         val isInVehicle = isSpeeding && (hasVehicleVibrationPattern || isContinuousMovement)
 
         if (isInVehicle) {
-            if (vehicleDetectionStartTime == 0L) {
-                vehicleDetectionStartTime = System.currentTimeMillis()
-            }
+            if (vehicleDetectionStartTime == 0L) vehicleDetectionStartTime = System.currentTimeMillis()
             val duration = System.currentTimeMillis() - vehicleDetectionStartTime
             if (duration >= Constants.VEHICLE_DETECTION_DURATION_SECONDS * 1000) {
                 _isMovingInVehicle.value = true
                 lastVehicleDetectionTime = System.currentTimeMillis()
             }
         } else {
-            // Se não atender aos critérios por mais de 10 segundos, desativar
             if (System.currentTimeMillis() - lastVehicleDetectionTime > 10000) {
                 vehicleDetectionStartTime = 0L
                 _isMovingInVehicle.value = false
@@ -123,21 +111,15 @@ class SensorDetector(private val context: Context) : SensorEventListener {
         }
     }
 
-    // Análise de padrão de vibração típico de veículo
     private fun analyzeVibrationPattern(): Boolean {
         if (accelerationMagnitudeHistory.isEmpty()) return false
-
-        // Calcular a variância da aceleração (padrão de vibração)
         val mean = accelerationMagnitudeHistory.average()
         val variance = accelerationMagnitudeHistory.map { (it - mean) * (it - mean) }.average()
         val standardDeviation = sqrt(variance)
-
-        // Padrão típico de veículo: variância significativa (vibração) mas não extrema
-        // Valores empíricos: SD entre 0.5 e 5.0 indica movimento de veículo
         return standardDeviation in 0.5f..5.0f
     }
 
-    // Implementação do SensorEventListener
+    // ======= SensorEventListener =======
     override fun onSensorChanged(event: SensorEvent?) {
         if (event == null) return
 
@@ -148,13 +130,8 @@ class SensorDetector(private val context: Context) : SensorEventListener {
                 val z = event.values[2]
                 val magnitude = sqrt(x * x + y * y + z * z)
 
-                // Manter histórico de magnitudes de aceleração
                 accelerationMagnitudeHistory.add(magnitude)
-                if (accelerationMagnitudeHistory.size > maxHistorySize) {
-                    accelerationMagnitudeHistory.removeAt(0)
-                }
-
-                // Atualizar o estado do fluxo de dados
+                if (accelerationMagnitudeHistory.size > maxHistorySize) accelerationMagnitudeHistory.removeAt(0)
                 _accelerometerData.value = floatArrayOf(x, y, z)
             }
             Sensor.TYPE_GYROSCOPE -> {
@@ -163,23 +140,15 @@ class SensorDetector(private val context: Context) : SensorEventListener {
                 val z = event.values[2]
                 val magnitude = sqrt(x * x + y * y + z * z)
 
-                // Manter histórico de magnitudes de giroscópio
                 gyroMagnitudeHistory.add(magnitude)
-                if (gyroMagnitudeHistory.size > maxHistorySize) {
-                    gyroMagnitudeHistory.removeAt(0)
-                }
-
-                // Atualizar o estado do fluxo de dados
+                if (gyroMagnitudeHistory.size > maxHistorySize) gyroMagnitudeHistory.removeAt(0)
                 _gyroscopeData.value = floatArrayOf(x, y, z)
             }
             Sensor.TYPE_LINEAR_ACCELERATION -> {
-                // Usar aceleração linear para movimento sem gravidade
                 // Já processado no acelerômetro
             }
         }
     }
 
-    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
-        // Não é necessário implementar para este caso
-    }
+    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
 }
