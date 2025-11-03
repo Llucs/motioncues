@@ -34,7 +34,8 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: app-release
-        path: app/build/outputs/apk/release/app-release.apk
+        # glob pattern para pegar qualquer APK de release
+        path: app/build/outputs/apk/release/**/*.apk
 
     - name: Run tests
       run: ./gradlew test
