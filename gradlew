@@ -14,7 +14,7 @@ else
 fi
 
 # Maximum file descriptors
-MAX_FD=maximum
+MAX_FD=65535   # Corrigido: número válido para Linux
 
 warn () {
     echo "$*" >&2
@@ -33,10 +33,10 @@ msys=false
 darwin=false
 nonstop=false
 case "$(uname)" in
-  CYGWIN* )         cygwin=true ;;
-  Darwin* )         darwin=true ;;
-  MSYS*|MINGW* )    msys=true ;;
-  NONSTOP* )        nonstop=true ;;
+  CYGWIN* )      cygwin=true ;;
+  Darwin* )      darwin=true ;;
+  MSYS*|MINGW* ) msys=true ;;
+  NONSTOP* )     nonstop=true ;;
 esac
 
 CLASSPATH=$APP_HOME/gradle/wrapper/gradle-wrapper.jar
@@ -59,12 +59,8 @@ else
     which java >/dev/null 2>&1 || die "ERROR: JAVA_HOME is not set and no 'java' command could be found in your PATH."
 fi
 
-# Increase maximum file descriptors
+# Increase maximum file descriptors (Linux)
 if ! $cygwin && ! $msys ; then
-    case $- in
-      *i*) ;; 
-      *) set +o allexec ;;
-    esac
     ulimit -n "$MAX_FD" || warn "Could not set maximum file descriptor limit to $MAX_FD"
 fi
 
