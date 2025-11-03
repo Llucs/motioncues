@@ -4,7 +4,6 @@ import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
-import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -27,18 +26,19 @@ class MotionService : LifecycleService() {
         sensorDetector = SensorDetector(this)
         dataStore = SettingsDataStore(this)
 
-        // Observar o estado de movimento do veículo
+        // Observar se o veículo está em movimento
         lifecycleScope.launch {
             sensorDetector.isMovingInVehicle.collectLatest { isMoving ->
-                handleAutomaticActivation(isMoving)
+                if (activationMode == ActivationMode.AUTO.value) {
+                    setEffectActive(isMoving)
+                }
             }
         }
 
-        // Observar o modo de ativação
+        // Observar modo de ativação manual ou automático
         lifecycleScope.launch {
             dataStore.activationModeFlow.collectLatest { mode ->
                 activationMode = mode
-                // Reavaliar o estado do efeito ao mudar o modo
                 if (mode == ActivationMode.ON.value) {
                     setEffectActive(true)
                 } else if (mode == ActivationMode.OFF.value) {
@@ -47,7 +47,7 @@ class MotionService : LifecycleService() {
             }
         }
 
-        // Observar o estado manual do efeito
+        // Observar estado manual do efeito
         lifecycleScope.launch {
             dataStore.effectActiveFlow.collectLatest { active ->
                 isEffectActive = active
@@ -57,8 +57,6 @@ class MotionService : LifecycleService() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        super.onStartCommand(intent, flags, startId)
-
         when (intent?.action) {
             Constants.ACTION_START_SERVICE -> {
                 startForeground(Constants.NOTIFICATION_ID, createNotification())
@@ -70,7 +68,6 @@ class MotionService : LifecycleService() {
                 stopSelf()
             }
             Constants.ACTION_TOGGLE_EFFECT -> {
-                // Alternar o estado do efeito apenas se o modo não for automático
                 if (activationMode != ActivationMode.AUTO.value) {
                     lifecycleScope.launch {
                         dataStore.saveEffectActive(!isEffectActive)
@@ -78,33 +75,22 @@ class MotionService : LifecycleService() {
                 }
             }
             else -> {
-                // Iniciar como Foreground Service por padrão
                 startForeground(Constants.NOTIFICATION_ID, createNotification())
                 sensorDetector.startDetection()
             }
         }
-
         return START_STICKY
-    }
-
-    private fun handleAutomaticActivation(isMoving: Boolean) {
-        if (activationMode == ActivationMode.AUTO.value) {
-            setEffectActive(isMoving)
-        }
     }
 
     private fun setEffectActive(active: Boolean) {
         if (isEffectActive != active) {
-            lifecycleScope.launch {
-                dataStore.saveEffectActive(active)
-            }
+            lifecycleScope.launch { dataStore.saveEffectActive(active) }
         }
     }
 
     private fun createNotification(): Notification {
         createNotificationChannel()
 
-        // Intent para abrir o app (clique longo)
         val openAppIntent = Intent(this, MainActivity::class.java).apply {
             action = Constants.ACTION_OPEN_APP
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -113,7 +99,6 @@ class MotionService : LifecycleService() {
             this, 0, openAppIntent, PendingIntent.FLAG_IMMUTABLE
         )
 
-        // Intent para alternar o efeito (clique curto/botão)
         val toggleIntent = Intent(this, MotionService::class.java).apply {
             action = Constants.ACTION_TOGGLE_EFFECT
         }
@@ -123,22 +108,19 @@ class MotionService : LifecycleService() {
 
         val text = if (isEffectActive) getString(R.string.notification_text_on) else getString(R.string.notification_text_off)
 
-        val builder = NotificationCompat.Builder(this, Constants.NOTIFICATION_CHANNEL_ID)
+        return NotificationCompat.Builder(this, Constants.NOTIFICATION_CHANNEL_ID)
             .setContentTitle(getString(R.string.notification_title))
             .setContentText(text)
-            .setSmallIcon(R.drawable.ic_notification) // Ícone a ser criado
-            .setContentIntent(pendingOpenAppIntent) // Clique longo abre o app
+            .setSmallIcon(R.drawable.ic_notification)
+            .setContentIntent(pendingOpenAppIntent)
+            .setOngoing(true)
+            .addAction(
+                R.drawable.ic_notification,
+                getString(R.string.notification_action_toggle),
+                pendingToggleIntent
+            )
             .setPriority(NotificationCompat.PRIORITY_LOW)
-            .setOngoing(true) // Notificação persistente
-
-        // Adicionar botão de ação (Alternar Efeito)
-        builder.addAction(
-            R.drawable.ic_notification, // Ícone a ser criado
-            getString(R.string.notification_action_toggle),
-            pendingToggleIntent
-        )
-
-        return builder.build()
+            .build()
     }
 
     private fun updateNotification() {
@@ -152,17 +134,13 @@ class MotionService : LifecycleService() {
                 Constants.NOTIFICATION_CHANNEL_ID,
                 getString(R.string.notification_channel_name),
                 NotificationManager.IMPORTANCE_LOW
-            ).apply {
-                description = getString(R.string.notification_channel_description)
-            }
-            val notificationManager: NotificationManager =
-                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            ).apply { description = getString(R.string.notification_channel_description) }
+            val notificationManager: NotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(channel)
         }
     }
 
-    override fun onBind(intent: Intent): IBinder {
-        super.onBind(intent)
-        throw UnsupportedOperationException("Not yet implemented")
+    override fun onBind(intent: Intent): IBinder? {
+        return super.onBind(intent)
     }
 }
