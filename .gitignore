@@ -1,0 +1,79 @@
+# Gradle files
+.gradle/
+build/
+*.apk
+*.ap_
+*.aab
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# Log/OS Files
+*.log
+.DS_Store
+
+# Android Studio generated files and folders
+.idea/
+.classpath
+.c9/
+*.class
+*.dex
+*.ear
+*.jar
+*.rar
+*.war
+*.zip
+*.tar.gz
+*.rar
+.DS_Store
+local.properties
+proguard-project.txt
+
+# Android Studio/IntelliJ
+*.iml
+.idea/
+.gradle
+build/
+captures/
+.externalNativeBuild
+.cxx/
+
+# Keystore files
+*.jks
+*.keystore
+
+# Google Services (if the app uses Firebase)
+google-services.json
+
+# Signing files
+*.keystore
+*.jks
+
+# User-specific configurations
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/gradle.xml
+.idea/assetWizardSettings.xml
+.idea/dictionaries
+.idea/vcs.xml
+.idea/jsLibraryMappings.xml
+.idea/encodings.xml
+.idea/modules.xml
+.idea/*.iml
+.idea/modules
+*.swp
+*~
+
+# OS-specific files
+Thumbs.db
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+
+# Miscellaneous files
+*.bak
+*.tmp

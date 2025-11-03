@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">MotionCues</string>
+    <string name="settings">Configurações</string>
+    <string name="about">Sobre</string>
+    <string name="effect_status_active">Efeito Ativo</string>
+    <string name="effect_status_inactive">Efeito Inativo</string>
+    <string name="effect_status_auto">Modo Automático</string>
+    <string name="mode_toggle">Modo de Ativação</string>
+    <string name="mode_off">Desligado</string>
+    <string name="mode_on">Ligado</string>
+    <string name="mode_auto">Automático</string>
+    <string name="dot_color">Cor das Bolinhas</string>
+    <string name="dot_count">Quantidade de Bolinhas</string>
+    <string name="dot_size">Tamanho das Bolinhas</string>
+    <string name="size_small">Pequeno</string>
+    <string name="size_medium">Médio</string>
+    <string name="size_large">Grande</string>
+    <string name="source_code">Código-fonte</string>
+    <string name="credits">Créditos</string>
+    <string name="version">Versão</string>
+    <string name="developer_name">Llucs</string>
+    <string name="notification_channel_name">Detecção de Movimento</string>
+    <string name="notification_channel_description">Notificação persistente para controle do efeito visual e detecção de movimento em segundo plano.</string>
+    <string name="notification_title">MotionCues Ativo</string>
+    <string name="notification_text_on">Efeito visual ligado. Toque para desligar.</string>
+    <string name="notification_text_off">Efeito visual desligado. Toque para ligar.</string>
+    <string name="notification_action_toggle">Alternar Efeito</string>
+    <string name="start_service">Iniciar Serviço</string>
+    <string name="stop_service">Parar Serviço</string>
+    <string name="permission_required">Permissão Necessária</string>
+    <string name="location_permission_rationale">O modo automático requer permissão de localização para detectar a velocidade do veículo.</string>
+    <string name="grant_permission">Conceder Permissão</string>
+</resources>
