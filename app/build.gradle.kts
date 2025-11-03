@@ -59,6 +59,7 @@ dependencies {
     implementation(libs.ui.graphics)
     implementation(libs.ui.tooling.preview)
     implementation(libs.material3)
+    implementation("androidx.compose.material3:material3")
 
     // Material 3 Components
     implementation("androidx.compose.material3:material3-window-size-class")
