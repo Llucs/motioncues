@@ -20,7 +20,7 @@ class SettingsDataStore(private val context: Context) {
     private val DOT_COLOR_KEY = intPreferencesKey(Constants.KEY_DOT_COLOR)
     private val DOT_COUNT_KEY = intPreferencesKey(Constants.KEY_DOT_COUNT)
     private val DOT_SIZE_KEY = intPreferencesKey(Constants.KEY_DOT_SIZE)
-    private val EFFECT_ACTIVE_KEY = booleanPreferencesKey(Constants.KEY_EFFECT_ACTIVE) // Agora é boolean
+    private val EFFECT_ACTIVE_KEY = booleanPreferencesKey(Constants.KEY_EFFECT_ACTIVE)
 
     // Flow para ler o modo de ativação
     val activationModeFlow: Flow<String> = context.dataStore.data
@@ -31,7 +31,7 @@ class SettingsDataStore(private val context: Context) {
     // Flow para ler a cor das bolinhas
     val dotColorFlow: Flow<Int> = context.dataStore.data
         .map { preferences ->
-            preferences[DOT_COLOR_KEY] ?: Constants.DEFAULT_DOT_COLOR
+            preferences[DOT_COLOR_KEY] ?: Constants.DEFAULT_DOT_COLOR.toInt()
         }
 
     // Flow para ler a quantidade de bolinhas
