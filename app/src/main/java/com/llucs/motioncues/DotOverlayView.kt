@@ -34,6 +34,9 @@ data class Dot(
     var accelerationY: Float = 0f
 )
 
+// Enum de tamanho das bolinhas
+enum class DotSize(val value: Int) { SMALL(1), MEDIUM(2), LARGE(3) }
+
 @Composable
 fun DotOverlayView(
     dotColor: Long,
