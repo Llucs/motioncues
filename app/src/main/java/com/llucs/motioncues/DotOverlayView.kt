@@ -85,9 +85,7 @@ fun DotOverlayView(
             if (canvasWidth > 0 && canvasHeight > 0) {
                 dots.forEach { dot ->
                     // Aplicar aceleração baseada em sensores (se disponível)
-                    // O acelerômetro fornece valores em m/s² (típicamente -10 a +10)
-                    // Normalizar para um intervalo razoável para movimento das bolinhas
-                    val accelScale = 0.1f // Escala de sensibilidade
+                    val accelScale = 0.1f
                     dot.accelerationX = (accelerometerData[0] / 10f) * accelScale
                     dot.accelerationY = (accelerometerData[1] / 10f) * accelScale
 
@@ -95,14 +93,15 @@ fun DotOverlayView(
                     dot.velocityX += dot.accelerationX
                     dot.velocityY += dot.accelerationY
 
-                    // Aplicar amortecimento (fricção) para evitar velocidades excessivas
+                    // Aplicar amortecimento (fricção)
                     val damping = 0.95f
                     dot.velocityX *= damping
                     dot.velocityY *= damping
 
                     // Limitar a velocidade máxima
                     val maxSpeed = 8f
-                    val currentSpeed = sqrt(dot.velocityX * dot.velocityX + dot.velocityY * dot.velocityY)\n                    if (currentSpeed > maxSpeed) {
+                    val currentSpeed = sqrt(dot.velocityX * dot.velocityX + dot.velocityY * dot.velocityY)
+                    if (currentSpeed > maxSpeed) {
                         val scale = maxSpeed / currentSpeed
                         dot.velocityX *= scale
                         dot.velocityY *= scale
@@ -112,10 +111,10 @@ fun DotOverlayView(
                     dot.x += dot.velocityX
                     dot.y += dot.velocityY
 
-                    // Lógica de colisão com as bordas (reflexão)
+                    // Colisão com as bordas
                     if (dot.x - dot.radius < 0) {
                         dot.x = dot.radius
-                        dot.velocityX = -dot.velocityX * 0.8f // Perda de energia na colisão
+                        dot.velocityX = -dot.velocityX * 0.8f
                     } else if (dot.x + dot.radius > canvasWidth) {
                         dot.x = canvasWidth - dot.radius
                         dot.velocityX = -dot.velocityX * 0.8f
@@ -129,7 +128,7 @@ fun DotOverlayView(
                         dot.velocityY = -dot.velocityY * 0.8f
                     }
 
-                    // Adicionar pequena perturbação aleatória para movimento mais natural
+                    // Pequena perturbação aleatória
                     dot.velocityX += Random.nextFloat() * 0.05f - 0.025f
                     dot.velocityY += Random.nextFloat() * 0.05f - 0.025f
                 }
