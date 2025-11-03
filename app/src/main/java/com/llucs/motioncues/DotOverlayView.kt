@@ -8,6 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 import kotlin.math.sqrt
@@ -33,8 +34,6 @@ data class Dot(
     var accelerationY: Float = 0f
 )
 
-enum class DotSize(val value: Int) { SMALL(1), MEDIUM(2), LARGE(3) }
-
 @Composable
 fun DotOverlayView(
     dotColor: Long,
@@ -52,9 +51,7 @@ fun DotOverlayView(
         DotSize.LARGE.value -> 12.dp
         else -> 8.dp
     }
-    val dotRadiusPx = with(LocalContext.current.resources.displayMetrics) {
-        dotRadiusDp.value * density
-    }
+    val dotRadiusPx = with(LocalDensity.current) { dotRadiusDp.toPx() }
     val color = Color(dotColor.toULong())
 
     val dots = remember { mutableStateListOf<Dot>() }
