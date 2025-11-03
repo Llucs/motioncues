@@ -79,7 +79,8 @@ class MotionService : LifecycleService() {
                 sensorDetector.startDetection()
             }
         }
-        return START_STICKY
+        // ⚡ Chamada obrigatória para o super
+        return super.onStartCommand(intent, flags, startId)
     }
 
     private fun setEffectActive(active: Boolean) {
