@@ -14,6 +14,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.core.content.ContextCompat
 import com.llucs.motioncues.ui.theme.MotionCuesTheme
+import com.llucs.motioncues.SensorDetectorImpl
 
 class MainActivity : ComponentActivity() {
 
@@ -24,7 +25,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         dataStore = SettingsDataStore(this)
-        sensorDetector = SensorDetector(this)
+        sensorDetector = SensorDetectorImpl(this)
 
         startMotionService()
 
@@ -76,12 +77,12 @@ class MainActivity : ComponentActivity() {
 
     override fun onResume() {
         super.onResume()
-        sensorDetector.startDetection()
+        (sensorDetector as SensorDetectorImpl).startDetection()
     }
 
     override fun onPause() {
         super.onPause()
-        sensorDetector.stopDetection()
+        (sensorDetector as SensorDetectorImpl).stopDetection()
     }
 
     private fun startMotionService() {

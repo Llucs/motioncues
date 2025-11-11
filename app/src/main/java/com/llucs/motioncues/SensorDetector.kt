@@ -20,7 +20,16 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlin.math.sqrt
 
-class SensorDetector(private val context: Context) : SensorEventListener {
+interface SensorDetector {
+    val isMovingInVehicle: StateFlow<Boolean>
+    fun startDetection()
+    fun stopDetection()
+    fun isGyroAvailable(): Boolean
+    fun isAccelerometerAvailable(): Boolean
+    fun getSensorData(): FloatArray
+}
+
+class SensorDetectorImpl(private val context: Context) : SensorDetector, SensorEventListener {
 
     private val sensorManager: SensorManager = context.getSystemService(Context.SENSOR_SERVICE) as SensorManager
     private val fusedLocationClient: FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context)

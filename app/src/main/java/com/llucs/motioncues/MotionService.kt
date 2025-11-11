@@ -13,6 +13,7 @@ import androidx.lifecycle.LifecycleService
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import com.llucs.motioncues.SensorDetectorImpl
 
 class MotionService : LifecycleService() {
 
@@ -23,12 +24,12 @@ class MotionService : LifecycleService() {
 
     override fun onCreate() {
         super.onCreate()
-        sensorDetector = SensorDetector(this)
+        sensorDetector = SensorDetectorImpl(this)
         dataStore = SettingsDataStore(this)
 
         // Observar se o veículo está em movimento
         lifecycleScope.launch {
-            sensorDetector.isMovingInVehicle.collectLatest { isMoving ->
+            (sensorDetector as SensorDetectorImpl).isMovingInVehicle.collectLatest { isMoving ->
                 if (activationMode == ActivationMode.AUTO.value) {
                     setEffectActive(isMoving)
                 }
@@ -60,10 +61,10 @@ class MotionService : LifecycleService() {
         when (intent?.action) {
             Constants.ACTION_START_SERVICE -> {
                 startForeground(Constants.NOTIFICATION_ID, createNotification())
-                sensorDetector.startDetection()
+                (sensorDetector as SensorDetectorImpl).startDetection()
             }
             Constants.ACTION_STOP_SERVICE -> {
-                sensorDetector.stopDetection()
+                (sensorDetector as SensorDetectorImpl).stopDetection()
                 stopForeground(STOP_FOREGROUND_REMOVE)
                 stopSelf()
             }
@@ -76,7 +77,7 @@ class MotionService : LifecycleService() {
             }
             else -> {
                 startForeground(Constants.NOTIFICATION_ID, createNotification())
-                sensorDetector.startDetection()
+                (sensorDetector as SensorDetectorImpl).startDetection()
             }
         }
         // ⚡ Chamada obrigatória para o super
