@@ -1,0 +1,336 @@
+build	Set up job	﻿2025-11-12T03:05:39.6705595Z Current runner version: '2.329.0'
+build	Set up job	2025-11-12T03:05:39.6730439Z ##[group]Runner Image Provisioner
+build	Set up job	2025-11-12T03:05:39.6731292Z Hosted Compute Agent
+build	Set up job	2025-11-12T03:05:39.6731859Z Version: 20251016.436
+build	Set up job	2025-11-12T03:05:39.6732422Z Commit: 8ab8ac8bfd662a3739dab9fe09456aba92132568
+build	Set up job	2025-11-12T03:05:39.6733147Z Build Date: 2025-10-15T20:44:12Z
+build	Set up job	2025-11-12T03:05:39.6733718Z ##[endgroup]
+build	Set up job	2025-11-12T03:05:39.6734272Z ##[group]Operating System
+build	Set up job	2025-11-12T03:05:39.6734769Z Ubuntu
+build	Set up job	2025-11-12T03:05:39.6735370Z 24.04.3
+build	Set up job	2025-11-12T03:05:39.6735793Z LTS
+build	Set up job	2025-11-12T03:05:39.6736284Z ##[endgroup]
+build	Set up job	2025-11-12T03:05:39.6736783Z ##[group]Runner Image
+build	Set up job	2025-11-12T03:05:39.6737493Z Image: ubuntu-24.04
+build	Set up job	2025-11-12T03:05:39.6738044Z Version: 20251102.99.1
+build	Set up job	2025-11-12T03:05:39.6739022Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20251102.99/images/ubuntu/Ubuntu2404-Readme.md
+build	Set up job	2025-11-12T03:05:39.6740367Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20251102.99
+build	Set up job	2025-11-12T03:05:39.6741544Z ##[endgroup]
+build	Set up job	2025-11-12T03:05:39.6742655Z ##[group]GITHUB_TOKEN Permissions
+build	Set up job	2025-11-12T03:05:39.6744952Z Contents: read
+build	Set up job	2025-11-12T03:05:39.6745480Z Metadata: read
+build	Set up job	2025-11-12T03:05:39.6745966Z Packages: read
+build	Set up job	2025-11-12T03:05:39.6746513Z ##[endgroup]
+build	Set up job	2025-11-12T03:05:39.6749134Z Secret source: Actions
+build	Set up job	2025-11-12T03:05:39.6750010Z Prepare workflow directory
+build	Set up job	2025-11-12T03:05:39.7066168Z Prepare all required actions
+build	Set up job	2025-11-12T03:05:39.7103453Z Getting action download info
+build	Set up job	2025-11-12T03:05:39.9927177Z Download action repository 'actions/checkout@v4' (SHA:08eba0b27e820071cde6df949e0beb9ba4906955)
+build	Set up job	2025-11-12T03:05:40.8273661Z Download action repository 'actions/setup-java@v3' (SHA:17f84c3641ba7b8f6deff6309fc4c864478f5d62)
+build	Set up job	2025-11-12T03:05:41.2225288Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+build	Set up job	2025-11-12T03:05:41.5238543Z Complete job name: build
+build	Checkout repository	﻿2025-11-12T03:05:41.6022598Z ##[group]Run actions/checkout@v4
+build	Checkout repository	2025-11-12T03:05:41.6024233Z with:
+build	Checkout repository	2025-11-12T03:05:41.6025025Z   repository: Llucs/motioncues
+build	Checkout repository	2025-11-12T03:05:41.6026149Z   token: ***
+build	Checkout repository	2025-11-12T03:05:41.6026840Z   ssh-strict: true
+build	Checkout repository	2025-11-12T03:05:41.6027717Z   ssh-user: git
+build	Checkout repository	2025-11-12T03:05:41.6028482Z   persist-credentials: true
+build	Checkout repository	2025-11-12T03:05:41.6029323Z   clean: true
+build	Checkout repository	2025-11-12T03:05:41.6030085Z   sparse-checkout-cone-mode: true
+build	Checkout repository	2025-11-12T03:05:41.6031011Z   fetch-depth: 1
+build	Checkout repository	2025-11-12T03:05:41.6031741Z   fetch-tags: false
+build	Checkout repository	2025-11-12T03:05:41.6032493Z   show-progress: true
+build	Checkout repository	2025-11-12T03:05:41.6033251Z   lfs: false
+build	Checkout repository	2025-11-12T03:05:41.6033941Z   submodules: false
+build	Checkout repository	2025-11-12T03:05:41.6034701Z   set-safe-directory: true
+build	Checkout repository	2025-11-12T03:05:41.6035827Z ##[endgroup]
+build	Checkout repository	2025-11-12T03:05:41.7211956Z Syncing repository: Llucs/motioncues
+build	Checkout repository	2025-11-12T03:05:41.7215720Z ##[group]Getting Git version info
+build	Checkout repository	2025-11-12T03:05:41.7218083Z Working directory is '/home/runner/work/motioncues/motioncues'
+build	Checkout repository	2025-11-12T03:05:41.7221125Z [command]/usr/bin/git version
+build	Checkout repository	2025-11-12T03:05:41.7970384Z git version 2.51.2
+build	Checkout repository	2025-11-12T03:05:41.7998530Z ##[endgroup]
+build	Checkout repository	2025-11-12T03:05:41.8012144Z Temporarily overriding HOME='/home/runner/work/_temp/c9661a1c-0fdf-4364-aca9-a2fde9b0c357' before making global git config changes
+build	Checkout repository	2025-11-12T03:05:41.8016646Z Adding repository directory to the temporary git global config as a safe directory
+build	Checkout repository	2025-11-12T03:05:41.8019327Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/motioncues/motioncues
+build	Checkout repository	2025-11-12T03:05:41.8086608Z Deleting the contents of '/home/runner/work/motioncues/motioncues'
+build	Checkout repository	2025-11-12T03:05:41.8090436Z ##[group]Initializing the repository
+build	Checkout repository	2025-11-12T03:05:41.8093959Z [command]/usr/bin/git init /home/runner/work/motioncues/motioncues
+build	Checkout repository	2025-11-12T03:05:41.9752825Z hint: Using 'master' as the name for the initial branch. This default branch name
+build	Checkout repository	2025-11-12T03:05:41.9755747Z hint: is subject to change. To configure the initial branch name to use in all
+build	Checkout repository	2025-11-12T03:05:41.9757971Z hint: of your new repositories, which will suppress this warning, call:
+build	Checkout repository	2025-11-12T03:05:41.9759664Z hint:
+build	Checkout repository	2025-11-12T03:05:41.9761003Z hint: 	git config --global init.defaultBranch <name>
+build	Checkout repository	2025-11-12T03:05:41.9762252Z hint:
+build	Checkout repository	2025-11-12T03:05:41.9763389Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+build	Checkout repository	2025-11-12T03:05:41.9765296Z hint: 'development'. The just-created branch can be renamed via this command:
+build	Checkout repository	2025-11-12T03:05:41.9766777Z hint:
+build	Checkout repository	2025-11-12T03:05:41.9767654Z hint: 	git branch -m <name>
+build	Checkout repository	2025-11-12T03:05:41.9768512Z hint:
+build	Checkout repository	2025-11-12T03:05:41.9769677Z hint: Disable this message with "git config set advice.defaultBranchName false"
+build	Checkout repository	2025-11-12T03:05:41.9789538Z Initialized empty Git repository in /home/runner/work/motioncues/motioncues/.git/
+build	Checkout repository	2025-11-12T03:05:41.9802882Z [command]/usr/bin/git remote add origin https://github.com/Llucs/motioncues
+build	Checkout repository	2025-11-12T03:05:41.9894746Z ##[endgroup]
+build	Checkout repository	2025-11-12T03:05:41.9897241Z ##[group]Disabling automatic garbage collection
+build	Checkout repository	2025-11-12T03:05:41.9899398Z [command]/usr/bin/git config --local gc.auto 0
+build	Checkout repository	2025-11-12T03:05:41.9929253Z ##[endgroup]
+build	Checkout repository	2025-11-12T03:05:41.9931389Z ##[group]Setting up auth
+build	Checkout repository	2025-11-12T03:05:41.9937369Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+build	Checkout repository	2025-11-12T03:05:41.9969351Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+build	Checkout repository	2025-11-12T03:05:42.2094557Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+build	Checkout repository	2025-11-12T03:05:42.2123897Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+build	Checkout repository	2025-11-12T03:05:42.2341008Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+build	Checkout repository	2025-11-12T03:05:42.2382671Z ##[endgroup]
+build	Checkout repository	2025-11-12T03:05:42.2384585Z ##[group]Fetching the repository
+build	Checkout repository	2025-11-12T03:05:42.2392303Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +957972510aface433f891d6bea952d83768b77c6:refs/remotes/pull/1/merge
+build	Checkout repository	2025-11-12T03:05:42.6271390Z From https://github.com/Llucs/motioncues
+build	Checkout repository	2025-11-12T03:05:42.6272619Z  * [new ref]         957972510aface433f891d6bea952d83768b77c6 -> pull/1/merge
+build	Checkout repository	2025-11-12T03:05:42.6359441Z ##[endgroup]
+build	Checkout repository	2025-11-12T03:05:42.6360162Z ##[group]Determining the checkout info
+build	Checkout repository	2025-11-12T03:05:42.6361627Z ##[endgroup]
+build	Checkout repository	2025-11-12T03:05:42.6366713Z [command]/usr/bin/git sparse-checkout disable
+build	Checkout repository	2025-11-12T03:05:42.6440668Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+build	Checkout repository	2025-11-12T03:05:42.6467757Z ##[group]Checking out the ref
+build	Checkout repository	2025-11-12T03:05:42.6470954Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/1/merge
+build	Checkout repository	2025-11-12T03:05:42.6598780Z Note: switching to 'refs/remotes/pull/1/merge'.
+build	Checkout repository	2025-11-12T03:05:42.6599507Z 
+build	Checkout repository	2025-11-12T03:05:42.6600134Z You are in 'detached HEAD' state. You can look around, make experimental
+build	Checkout repository	2025-11-12T03:05:42.6601261Z changes and commit them, and you can discard any commits you make in this
+build	Checkout repository	2025-11-12T03:05:42.6602187Z state without impacting any branches by switching back to a branch.
+build	Checkout repository	2025-11-12T03:05:42.6602732Z 
+build	Checkout repository	2025-11-12T03:05:42.6603109Z If you want to create a new branch to retain commits you create, you may
+build	Checkout repository	2025-11-12T03:05:42.6603974Z do so (now or later) by using -c with the switch command. Example:
+build	Checkout repository	2025-11-12T03:05:42.6604471Z 
+build	Checkout repository	2025-11-12T03:05:42.6604708Z   git switch -c <new-branch-name>
+build	Checkout repository	2025-11-12T03:05:42.6605075Z 
+build	Checkout repository	2025-11-12T03:05:42.6605318Z Or undo this operation with:
+build	Checkout repository	2025-11-12T03:05:42.6605825Z 
+build	Checkout repository	2025-11-12T03:05:42.6606144Z   git switch -
+build	Checkout repository	2025-11-12T03:05:42.6606511Z 
+build	Checkout repository	2025-11-12T03:05:42.6606933Z Turn off this advice by setting config variable advice.detachedHead to false
+build	Checkout repository	2025-11-12T03:05:42.6607760Z 
+build	Checkout repository	2025-11-12T03:05:42.6608394Z HEAD is now at 9579725 Merge c112b0a546fbcbc6a8bcd9e471fca88431b4acbf into d5f96bcfb6328f8e1276e8a7d63c2b8cc135c1bb
+build	Checkout repository	2025-11-12T03:05:42.6610761Z ##[endgroup]
+build	Checkout repository	2025-11-12T03:05:42.6639978Z [command]/usr/bin/git log -1 --format=%H
+build	Checkout repository	2025-11-12T03:05:42.6661115Z 957972510aface433f891d6bea952d83768b77c6
+build	Set up JDK 17	﻿2025-11-12T03:05:42.6929522Z ##[group]Run actions/setup-java@v3
+build	Set up JDK 17	2025-11-12T03:05:42.6929983Z with:
+build	Set up JDK 17	2025-11-12T03:05:42.6930295Z   java-version: 17
+build	Set up JDK 17	2025-11-12T03:05:42.6930640Z   distribution: temurin
+build	Set up JDK 17	2025-11-12T03:05:42.6930972Z   cache: gradle
+build	Set up JDK 17	2025-11-12T03:05:42.6931293Z   java-package: jdk
+build	Set up JDK 17	2025-11-12T03:05:42.6931616Z   check-latest: false
+build	Set up JDK 17	2025-11-12T03:05:42.6931945Z   server-id: github
+build	Set up JDK 17	2025-11-12T03:05:42.6932279Z   server-username: GITHUB_ACTOR
+build	Set up JDK 17	2025-11-12T03:05:42.6932671Z   server-password: GITHUB_TOKEN
+build	Set up JDK 17	2025-11-12T03:05:42.6933053Z   overwrite-settings: true
+build	Set up JDK 17	2025-11-12T03:05:42.6933408Z   job-status: success
+build	Set up JDK 17	2025-11-12T03:05:42.6933887Z   token: ***
+build	Set up JDK 17	2025-11-12T03:05:42.6934195Z ##[endgroup]
+build	Set up JDK 17	2025-11-12T03:05:42.8946229Z ##[group]Installed distributions
+build	Set up JDK 17	2025-11-12T03:05:42.9241096Z Resolved Java 17.0.17+10 from tool-cache
+build	Set up JDK 17	2025-11-12T03:05:42.9242178Z Setting Java 17.0.17+10 as the default
+build	Set up JDK 17	2025-11-12T03:05:42.9255273Z Creating toolchains.xml for JDK version 17 from temurin
+build	Set up JDK 17	2025-11-12T03:05:42.9331324Z Writing to /home/runner/.m2/toolchains.xml
+build	Set up JDK 17	2025-11-12T03:05:42.9331994Z 
+build	Set up JDK 17	2025-11-12T03:05:42.9332258Z Java configuration:
+build	Set up JDK 17	2025-11-12T03:05:42.9333012Z   Distribution: temurin
+build	Set up JDK 17	2025-11-12T03:05:42.9333702Z   Version: 17.0.17+10
+build	Set up JDK 17	2025-11-12T03:05:42.9334583Z   Path: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.17-10/x64
+build	Set up JDK 17	2025-11-12T03:05:42.9335282Z 
+build	Set up JDK 17	2025-11-12T03:05:42.9335992Z ##[endgroup]
+build	Set up JDK 17	2025-11-12T03:05:42.9353060Z Creating settings.xml with server-id: github
+build	Set up JDK 17	2025-11-12T03:05:42.9363049Z Writing to /home/runner/.m2/settings.xml
+build	Set up JDK 17	2025-11-12T03:05:43.1638869Z Cache hit for: setup-java-Linux-gradle-64305c16cdf2569e9e3477111658f4fdba72996df028f58c498c3ca65ad83b59
+build	Set up JDK 17	2025-11-12T03:05:44.2062131Z Received 176160768 of 830774190 (21.2%), 168.0 MBs/sec
+build	Set up JDK 17	2025-11-12T03:05:45.2822929Z Received 402653184 of 830774190 (48.5%), 185.0 MBs/sec
+build	Set up JDK 17	2025-11-12T03:05:46.2818762Z Received 583008256 of 830774190 (70.2%), 180.8 MBs/sec
+build	Set up JDK 17	2025-11-12T03:05:47.2854699Z Received 750780416 of 830774190 (90.4%), 175.5 MBs/sec
+build	Set up JDK 17	2025-11-12T03:05:47.8063682Z Received 830774190 of 830774190 (100.0%), 172.2 MBs/sec
+build	Set up JDK 17	2025-11-12T03:05:47.8064945Z Cache Size: ~792 MB (830774190 B)
+build	Set up JDK 17	2025-11-12T03:05:47.8192498Z [command]/usr/bin/tar -xf /home/runner/work/_temp/e3232a25-fcd7-4ee5-9913-4facad62a63a/cache.tzst -P -C /home/runner/work/motioncues/motioncues --use-compress-program unzstd
+build	Set up JDK 17	2025-11-12T03:05:51.0121213Z Cache restored successfully
+build	Set up JDK 17	2025-11-12T03:05:51.1648857Z Cache restored from key: setup-java-Linux-gradle-64305c16cdf2569e9e3477111658f4fdba72996df028f58c498c3ca65ad83b59
+build	Grant execute permission for gradlew	﻿2025-11-12T03:05:51.1843271Z ##[group]Run chmod +x gradlew
+build	Grant execute permission for gradlew	2025-11-12T03:05:51.1843740Z [36;1mchmod +x gradlew[0m
+build	Grant execute permission for gradlew	2025-11-12T03:05:51.1891686Z shell: /usr/bin/bash -e {0}
+build	Grant execute permission for gradlew	2025-11-12T03:05:51.1892071Z env:
+build	Grant execute permission for gradlew	2025-11-12T03:05:51.1892537Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.17-10/x64
+build	Grant execute permission for gradlew	2025-11-12T03:05:51.1893337Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.17-10/x64
+build	Grant execute permission for gradlew	2025-11-12T03:05:51.1893954Z ##[endgroup]
+build	Build with Gradle	﻿2025-11-12T03:05:51.2027878Z ##[group]Run bash ./gradlew build
+build	Build with Gradle	2025-11-12T03:05:51.2028342Z [36;1mbash ./gradlew build[0m
+build	Build with Gradle	2025-11-12T03:05:51.2066533Z shell: /usr/bin/bash -e {0}
+build	Build with Gradle	2025-11-12T03:05:51.2066895Z env:
+build	Build with Gradle	2025-11-12T03:05:51.2067494Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.17-10/x64
+build	Build with Gradle	2025-11-12T03:05:51.2068261Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.17-10/x64
+build	Build with Gradle	2025-11-12T03:05:51.2068859Z ##[endgroup]
+build	Build with Gradle	2025-11-12T03:05:54.0942356Z 
+build	Build with Gradle	2025-11-12T03:05:54.0943990Z Welcome to Gradle 8.3!
+build	Build with Gradle	2025-11-12T03:05:54.0944387Z 
+build	Build with Gradle	2025-11-12T03:05:54.0944989Z Here are the highlights of this release:
+build	Build with Gradle	2025-11-12T03:05:54.0946245Z  - Faster Java compilation
+build	Build with Gradle	2025-11-12T03:05:54.0947737Z  - Reduced memory usage
+build	Build with Gradle	2025-11-12T03:05:54.0952023Z  - Support for running on Java 20
+build	Build with Gradle	2025-11-12T03:05:54.0952483Z 
+build	Build with Gradle	2025-11-12T03:05:54.0953725Z For more details see https://docs.gradle.org/8.3/release-notes.html
+build	Build with Gradle	2025-11-12T03:05:54.0954262Z 
+build	Build with Gradle	2025-11-12T03:05:55.1883251Z Starting a Gradle Daemon (subsequent builds will be faster)
+build	Build with Gradle	2025-11-12T03:06:08.6974253Z > Task :app:preBuild UP-TO-DATE
+build	Build with Gradle	2025-11-12T03:06:08.6991896Z > Task :app:preDebugBuild UP-TO-DATE
+build	Build with Gradle	2025-11-12T03:06:08.6994630Z > Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
+build	Build with Gradle	2025-11-12T03:06:09.4905899Z > Task :app:generateDebugResValues FROM-CACHE
+build	Build with Gradle	2025-11-12T03:06:09.4917813Z > Task :app:checkDebugAarMetadata
+build	Build with Gradle	2025-11-12T03:06:09.5883174Z > Task :app:mapDebugSourceSetPaths
+build	Build with Gradle	2025-11-12T03:06:09.5898347Z > Task :app:generateDebugResources UP-TO-DATE
+build	Build with Gradle	2025-11-12T03:06:09.6882931Z > Task :app:mergeDebugResources FROM-CACHE
+build	Build with Gradle	2025-11-12T03:06:09.6885341Z > Task :app:packageDebugResources FROM-CACHE
+build	Build with Gradle	2025-11-12T03:06:10.8883470Z > Task :app:parseDebugLocalResources FROM-CACHE
+build	Build with Gradle	2025-11-12T03:06:10.9885481Z > Task :app:createDebugCompatibleScreenManifests
+build	Build with Gradle	2025-11-12T03:06:10.9892228Z > Task :app:extractDeepLinksDebug FROM-CACHE
+build	Build with Gradle	2025-11-12T03:06:11.0883851Z > Task :app:processDebugMainManifest FROM-CACHE
+build	Build with Gradle	2025-11-12T03:06:11.0891466Z > Task :app:processDebugManifest FROM-CACHE
+build	Build with Gradle	2025-11-12T03:06:11.0893054Z > Task :app:processDebugManifestForPackage FROM-CACHE
+build	Build with Gradle	2025-11-12T03:06:11.3894429Z > Task :app:processDebugResources FROM-CACHE
+build	Build with Gradle	2025-11-12T03:06:11.8890167Z > Task :app:javaPreCompileDebug FROM-CACHE
+build	Build with Gradle	2025-11-12T03:06:11.8890770Z > Task :app:mergeDebugShaders FROM-CACHE
+build	Build with Gradle	2025-11-12T03:06:11.8891263Z > Task :app:compileDebugShaders NO-SOURCE
+build	Build with Gradle	2025-11-12T03:06:11.8891778Z > Task :app:generateDebugAssets UP-TO-DATE
+build	Build with Gradle	2025-11-12T03:06:11.9909747Z > Task :app:mergeDebugAssets FROM-CACHE
+build	Build with Gradle	2025-11-12T03:06:11.9910316Z > Task :app:compressDebugAssets FROM-CACHE
+build	Build with Gradle	2025-11-12T03:06:12.1886177Z > Task :app:desugarDebugFileDependencies FROM-CACHE
+build	Build with Gradle	2025-11-12T03:06:12.1904877Z > Task :app:mergeDebugJniLibFolders FROM-CACHE
+build	Build with Gradle	2025-11-12T03:06:12.1913097Z > Task :app:checkDebugDuplicateClasses
+build	Build with Gradle	2025-11-12T03:06:12.2890538Z > Task :app:mergeDebugNativeLibs NO-SOURCE
+build	Build with Gradle	2025-11-12T03:06:12.6913037Z > Task :app:mergeExtDexDebug FROM-CACHE
+build	Build with Gradle	2025-11-12T03:06:12.6913950Z > Task :app:mergeLibDexDebug FROM-CACHE
+build	Build with Gradle	2025-11-12T03:06:12.6919616Z > Task :app:stripDebugDebugSymbols NO-SOURCE
+build	Build with Gradle	2025-11-12T03:06:13.5900047Z > Task :app:validateSigningDebug
+build	Build with Gradle	2025-11-12T03:06:13.5916782Z > Task :app:writeDebugAppMetadata
+build	Build with Gradle	2025-11-12T03:06:13.5917894Z > Task :app:writeDebugSigningConfigVersions
+build	Build with Gradle	2025-11-12T03:06:13.6890880Z > Task :app:buildKotlinToolingMetadata
+build	Build with Gradle	2025-11-12T03:06:13.6891839Z > Task :app:preReleaseBuild UP-TO-DATE
+build	Build with Gradle	2025-11-12T03:06:13.7883377Z > Task :app:generateReleaseResValues FROM-CACHE
+build	Build with Gradle	2025-11-12T03:06:13.7885669Z > Task :app:checkReleaseAarMetadata
+build	Build with Gradle	2025-11-12T03:06:13.7909308Z > Task :app:mapReleaseSourceSetPaths
+build	Build with Gradle	2025-11-12T03:06:13.7909851Z > Task :app:generateReleaseResources UP-TO-DATE
+build	Build with Gradle	2025-11-12T03:06:13.9888714Z > Task :app:mergeReleaseResources FROM-CACHE
+build	Build with Gradle	2025-11-12T03:06:13.9895278Z > Task :app:packageReleaseResources FROM-CACHE
+build	Build with Gradle	2025-11-12T03:06:13.9906818Z > Task :app:parseReleaseLocalResources FROM-CACHE
+build	Build with Gradle	2025-11-12T03:06:13.9912292Z > Task :app:createReleaseCompatibleScreenManifests
+build	Build with Gradle	2025-11-12T03:06:13.9929808Z > Task :app:extractDeepLinksRelease FROM-CACHE
+build	Build with Gradle	2025-11-12T03:06:14.0905560Z > Task :app:processReleaseMainManifest FROM-CACHE
+build	Build with Gradle	2025-11-12T03:06:14.0907832Z > Task :app:processReleaseManifest FROM-CACHE
+build	Build with Gradle	2025-11-12T03:06:14.0908683Z > Task :app:processReleaseManifestForPackage FROM-CACHE
+build	Build with Gradle	2025-11-12T03:06:14.2887513Z > Task :app:processReleaseResources FROM-CACHE
+build	Build with Gradle	2025-11-12T03:06:14.2893408Z > Task :app:javaPreCompileRelease FROM-CACHE
+build	Build with Gradle	2025-11-12T03:06:14.3928734Z > Task :app:extractProguardFiles
+build	Build with Gradle	2025-11-12T03:06:14.3957987Z > Task :app:mergeReleaseJniLibFolders FROM-CACHE
+build	Build with Gradle	2025-11-12T03:06:14.3959016Z > Task :app:mergeReleaseNativeLibs NO-SOURCE
+build	Build with Gradle	2025-11-12T03:06:14.3959727Z > Task :app:stripReleaseDebugSymbols NO-SOURCE
+build	Build with Gradle	2025-11-12T03:06:14.3960498Z > Task :app:extractReleaseNativeSymbolTables NO-SOURCE
+build	Build with Gradle	2025-11-12T03:06:14.3962429Z > Task :app:mergeReleaseNativeDebugMetadata NO-SOURCE
+build	Build with Gradle	2025-11-12T03:06:14.4890440Z > Task :app:desugarReleaseFileDependencies FROM-CACHE
+build	Build with Gradle	2025-11-12T03:06:14.5904981Z > Task :app:checkReleaseDuplicateClasses
+build	Build with Gradle	2025-11-12T03:06:14.5912940Z > Task :app:mergeReleaseArtProfile
+build	Build with Gradle	2025-11-12T03:06:15.0899898Z > Task :app:mergeExtDexRelease FROM-CACHE
+build	Build with Gradle	2025-11-12T03:06:15.0900997Z > Task :app:mergeReleaseShaders FROM-CACHE
+build	Build with Gradle	2025-11-12T03:06:15.0901725Z > Task :app:compileReleaseShaders NO-SOURCE
+build	Build with Gradle	2025-11-12T03:06:15.0907241Z > Task :app:generateReleaseAssets UP-TO-DATE
+build	Build with Gradle	2025-11-12T03:06:15.0908152Z > Task :app:mergeReleaseAssets FROM-CACHE
+build	Build with Gradle	2025-11-12T03:06:15.0908885Z > Task :app:compressReleaseAssets FROM-CACHE
+build	Build with Gradle	2025-11-12T03:06:15.0919363Z > Task :app:optimizeReleaseResources FROM-CACHE
+build	Build with Gradle	2025-11-12T03:06:15.2900302Z > Task :app:collectReleaseDependencies
+build	Build with Gradle	2025-11-12T03:06:15.3891385Z > Task :app:sdkReleaseDependencyData
+build	Build with Gradle	2025-11-12T03:06:15.3900225Z > Task :app:writeReleaseAppMetadata
+build	Build with Gradle	2025-11-12T03:06:15.3904228Z > Task :app:writeReleaseSigningConfigVersions
+build	Build with Gradle	2025-11-12T03:06:15.3908382Z > Task :app:preDebugAndroidTestBuild SKIPPED
+build	Build with Gradle	2025-11-12T03:06:15.3912483Z > Task :app:generateDebugAndroidTestResValues FROM-CACHE
+build	Build with Gradle	2025-11-12T03:06:15.3916543Z > Task :app:preDebugUnitTestBuild UP-TO-DATE
+build	Build with Gradle	2025-11-12T03:06:15.4894327Z > Task :app:javaPreCompileDebugUnitTest FROM-CACHE
+build	Build with Gradle	2025-11-12T03:06:15.4900745Z > Task :app:preReleaseUnitTestBuild UP-TO-DATE
+build	Build with Gradle	2025-11-12T03:06:15.4901334Z > Task :app:javaPreCompileReleaseUnitTest FROM-CACHE
+build	Build with Gradle	2025-11-12T03:06:22.2885865Z 
+build	Build with Gradle	2025-11-12T03:06:22.2888629Z e: file:///home/runner/work/motioncues/motioncues/app/src/main/java/com/llucs/motioncues/HomeScreen.kt:15:25 Type 'State<Boolean>' has no method 'getValue(Nothing?, KProperty<*>)' and thus it cannot serve as a delegate
+build	Build with Gradle	2025-11-12T03:06:22.2902630Z e: file:///home/runner/work/motioncues/motioncues/app/src/main/java/com/llucs/motioncues/HomeScreen.kt:16:17 Type 'State<String>' has no method 'getValue(Nothing?, KProperty<*>)' and thus it cannot serve as a delegate
+build	Build with Gradle	2025-11-12T03:06:22.2905155Z e: file:///home/runner/work/motioncues/motioncues/app/src/main/java/com/llucs/motioncues/MainActivity.kt:70:49 No value passed for parameter 'onNavigateHome'
+build	Build with Gradle	2025-11-12T03:06:22.2907557Z e: file:///home/runner/work/motioncues/motioncues/app/src/main/java/com/llucs/motioncues/MainActivity.kt:70:49 No value passed for parameter 'onNavigateAbout'
+build	Build with Gradle	2025-11-12T03:06:22.2908916Z > Task :app:compileDebugKotlin FAILED
+build	Build with Gradle	2025-11-12T03:06:22.2910227Z e: file:///home/runner/work/motioncues/motioncues/app/src/main/java/com/llucs/motioncues/MainScreen.kt:52:36 No value passed for parameter 'onNavigateHome'
+build	Build with Gradle	2025-11-12T03:06:22.2912357Z e: file:///home/runner/work/motioncues/motioncues/app/src/main/java/com/llucs/motioncues/MainScreen.kt:52:36 No value passed for parameter 'onNavigateAbout'
+build	Build with Gradle	2025-11-12T03:06:22.2914382Z e: file:///home/runner/work/motioncues/motioncues/app/src/main/java/com/llucs/motioncues/MainScreen.kt:55:32 No value passed for parameter 'onNavigateHome'
+build	Build with Gradle	2025-11-12T03:06:22.2916486Z e: file:///home/runner/work/motioncues/motioncues/app/src/main/java/com/llucs/motioncues/MainScreen.kt:55:32 No value passed for parameter 'onNavigateSettings'
+build	Build with Gradle	2025-11-12T03:06:22.2919564Z e: file:///home/runner/work/motioncues/motioncues/app/src/main/java/com/llucs/motioncues/HomeScreen.kt:15:25 Type 'State<Boolean>' has no method 'getValue(Nothing?, KProperty<*>)' and thus it cannot serve as a delegate
+build	Build with Gradle	2025-11-12T03:06:22.2922202Z e: file:///home/runner/work/motioncues/motioncues/app/src/main/java/com/llucs/motioncues/HomeScreen.kt:16:17 Type 'State<String>' has no method 'getValue(Nothing?, KProperty<*>)' and thus it cannot serve as a delegate
+build	Build with Gradle	2025-11-12T03:06:22.2924601Z e: file:///home/runner/work/motioncues/motioncues/app/src/main/java/com/llucs/motioncues/MainActivity.kt:70:49 No value passed for parameter 'onNavigateHome'
+build	Build with Gradle	2025-11-12T03:06:22.2926750Z e: file:///home/runner/work/motioncues/motioncues/app/src/main/java/com/llucs/motioncues/MainActivity.kt:70:49 No value passed for parameter 'onNavigateAbout'
+build	Build with Gradle	2025-11-12T03:06:22.2929220Z e: file:///home/runner/work/motioncues/motioncues/app/src/main/java/com/llucs/motioncues/MainScreen.kt:52:36 No value passed for parameter 'onNavigateHome'
+build	Build with Gradle	2025-11-12T03:06:22.2931227Z e: file:///home/runner/work/motioncues/motioncues/app/src/main/java/com/llucs/motioncues/MainScreen.kt:52:36 No value passed for parameter 'onNavigateAbout'
+build	Build with Gradle	2025-11-12T03:06:22.2933240Z e: file:///home/runner/work/motioncues/motioncues/app/src/main/java/com/llucs/motioncues/MainScreen.kt:55:32 No value passed for parameter 'onNavigateHome'
+build	Build with Gradle	2025-11-12T03:06:22.2935272Z e: file:///home/runner/work/motioncues/motioncues/app/src/main/java/com/llucs/motioncues/MainScreen.kt:55:32 No value passed for parameter 'onNavigateSettings'
+build	Build with Gradle	2025-11-12T03:06:22.2936605Z 
+build	Build with Gradle	2025-11-12T03:06:22.2936784Z > Task :app:compileReleaseKotlin FAILED
+build	Build with Gradle	2025-11-12T03:06:22.3894062Z 
+build	Build with Gradle	2025-11-12T03:06:22.3896067Z FAILURE: Build completed with 2 failures.
+build	Build with Gradle	2025-11-12T03:06:22.3896726Z 
+build	Build with Gradle	2025-11-12T03:06:22.3902915Z 1: Task failed with an exception.
+build	Build with Gradle	2025-11-12T03:06:22.3903414Z 57 actionable tasks: 20 executed, 37 from cache
+build	Build with Gradle	2025-11-12T03:06:22.3910968Z -----------
+build	Build with Gradle	2025-11-12T03:06:22.3911786Z * What went wrong:
+build	Build with Gradle	2025-11-12T03:06:22.3913197Z Execution failed for task ':app:compileDebugKotlin'.
+build	Build with Gradle	2025-11-12T03:06:22.3915274Z > A failure occurred while executing org.jetbrains.kotlin.compilerRunner.GradleCompilerRunnerWithWorkers$GradleKotlinCompilerWorkAction
+build	Build with Gradle	2025-11-12T03:06:22.3916575Z    > Compilation error. See log for more details
+build	Build with Gradle	2025-11-12T03:06:22.3919210Z 
+build	Build with Gradle	2025-11-12T03:06:22.3919461Z * Try:
+build	Build with Gradle	2025-11-12T03:06:22.3932771Z > Run with --stacktrace option to get the stack trace.
+build	Build with Gradle	2025-11-12T03:06:22.3933404Z > Run with --info or --debug option to get more log output.
+build	Build with Gradle	2025-11-12T03:06:22.3933955Z > Run with --scan to get full insights.
+build	Build with Gradle	2025-11-12T03:06:22.3934467Z > Get more help at https://help.gradle.org.
+build	Build with Gradle	2025-11-12T03:06:22.3934933Z ==============================================================================
+build	Build with Gradle	2025-11-12T03:06:22.3935284Z 
+build	Build with Gradle	2025-11-12T03:06:22.3935438Z 2: Task failed with an exception.
+build	Build with Gradle	2025-11-12T03:06:22.3936333Z -----------
+build	Build with Gradle	2025-11-12T03:06:22.3936663Z * What went wrong:
+build	Build with Gradle	2025-11-12T03:06:22.3937430Z Execution failed for task ':app:compileReleaseKotlin'.
+build	Build with Gradle	2025-11-12T03:06:22.3938630Z > A failure occurred while executing org.jetbrains.kotlin.compilerRunner.GradleCompilerRunnerWithWorkers$GradleKotlinCompilerWorkAction
+build	Build with Gradle	2025-11-12T03:06:22.3939768Z    > Compilation error. See log for more details
+build	Build with Gradle	2025-11-12T03:06:22.3940100Z 
+build	Build with Gradle	2025-11-12T03:06:22.3940210Z * Try:
+build	Build with Gradle	2025-11-12T03:06:22.3940561Z > Run with --stacktrace option to get the stack trace.
+build	Build with Gradle	2025-11-12T03:06:22.3941144Z > Run with --info or --debug option to get more log output.
+build	Build with Gradle	2025-11-12T03:06:22.3941677Z > Run with --scan to get full insights.
+build	Build with Gradle	2025-11-12T03:06:22.3942149Z > Get more help at https://help.gradle.org.
+build	Build with Gradle	2025-11-12T03:06:22.3942645Z ==============================================================================
+build	Build with Gradle	2025-11-12T03:06:22.3942980Z 
+build	Build with Gradle	2025-11-12T03:06:22.3943112Z BUILD FAILED in 29s
+build	Build with Gradle	2025-11-12T03:06:23.0472474Z ##[error]Process completed with exit code 1.
+build	Upload Lint Report	﻿2025-11-12T03:06:23.0553136Z ##[group]Run actions/upload-artifact@v4
+build	Upload Lint Report	2025-11-12T03:06:23.0553418Z with:
+build	Upload Lint Report	2025-11-12T03:06:23.0553596Z   name: lint-report
+build	Upload Lint Report	2025-11-12T03:06:23.0553807Z   path: app/build/reports/lint-results.html
+build	Upload Lint Report	2025-11-12T03:06:23.0554071Z   if-no-files-found: warn
+build	Upload Lint Report	2025-11-12T03:06:23.0554282Z   compression-level: 6
+build	Upload Lint Report	2025-11-12T03:06:23.0554470Z   overwrite: false
+build	Upload Lint Report	2025-11-12T03:06:23.0554667Z   include-hidden-files: false
+build	Upload Lint Report	2025-11-12T03:06:23.0554874Z env:
+build	Upload Lint Report	2025-11-12T03:06:23.0555139Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.17-10/x64
+build	Upload Lint Report	2025-11-12T03:06:23.0555595Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.17-10/x64
+build	Upload Lint Report	2025-11-12T03:06:23.0555937Z ##[endgroup]
+build	Upload Lint Report	2025-11-12T03:06:23.2649486Z ##[warning]No files were found with the provided path: app/build/reports/lint-results.html. No artifacts will be uploaded.
+build	Post Set up JDK 17	﻿2025-11-12T03:06:23.2779069Z Post job cleanup.
+build	Post Checkout repository	﻿2025-11-12T03:06:23.4513094Z Post job cleanup.
+build	Post Checkout repository	2025-11-12T03:06:23.5455654Z [command]/usr/bin/git version
+build	Post Checkout repository	2025-11-12T03:06:23.5496114Z git version 2.51.2
+build	Post Checkout repository	2025-11-12T03:06:23.5547515Z Temporarily overriding HOME='/home/runner/work/_temp/eb08f858-7167-4c7d-888b-2b7dbe80a93d' before making global git config changes
+build	Post Checkout repository	2025-11-12T03:06:23.5548875Z Adding repository directory to the temporary git global config as a safe directory
+build	Post Checkout repository	2025-11-12T03:06:23.5553588Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/motioncues/motioncues
+build	Post Checkout repository	2025-11-12T03:06:23.5587349Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+build	Post Checkout repository	2025-11-12T03:06:23.5619316Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+build	Post Checkout repository	2025-11-12T03:06:23.5844532Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+build	Post Checkout repository	2025-11-12T03:06:23.5864638Z http.https://github.com/.extraheader
+build	Post Checkout repository	2025-11-12T03:06:23.5876822Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+build	Post Checkout repository	2025-11-12T03:06:23.5906784Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+build	Complete job	﻿2025-11-12T03:06:23.6221414Z Cleaning up orphan processes
+build	Complete job	2025-11-12T03:06:23.6486051Z Terminate orphan process: pid (2124) (java)
+build	Complete job	2025-11-12T03:06:23.6515049Z Terminate orphan process: pid (2236) (java)
