@@ -14,12 +14,7 @@ import kotlinx.coroutines.delay
 import kotlin.math.sqrt
 import kotlin.random.Random
 
-// Interface que define os sensores
-interface SensorDetector {
-    fun isGyroAvailable(): Boolean
-    fun isAccelerometerAvailable(): Boolean
-    fun getSensorData(): FloatArray
-}
+
 
 // Classe representando cada bolinha
 data class Dot(
@@ -34,8 +29,7 @@ data class Dot(
     var accelerationY: Float = 0f
 )
 
-// Enum de tamanho das bolinhas
-enum class DotSize(val value: Int) { SMALL(1), MEDIUM(2), LARGE(3) }
+
 
 @Composable
 fun DotOverlayView(
@@ -43,15 +37,15 @@ fun DotOverlayView(
     dotCount: Int,
     dotSize: Int,
     isEffectActive: Boolean,
-    sensorDetector: SensorDetector? = null
+    sensorDetector: com.llucs.motioncues.SensorDetector? = null
 ) {
     if (!isEffectActive) return
 
     val context = LocalContext.current
     val dotRadiusDp = when (dotSize) {
-        DotSize.SMALL.value -> 4.dp
-        DotSize.MEDIUM.value -> 8.dp
-        DotSize.LARGE.value -> 12.dp
+        com.llucs.motioncues.DotSize.SMALL.value -> 4.dp
+        com.llucs.motioncues.DotSize.MEDIUM.value -> 8.dp
+        com.llucs.motioncues.DotSize.LARGE.value -> 12.dp
         else -> 8.dp
     }
     val dotRadiusPx = with(LocalDensity.current) { dotRadiusDp.toPx() }

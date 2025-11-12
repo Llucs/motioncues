@@ -41,7 +41,7 @@ class SensorDetectorImpl(private val context: Context) : SensorDetector, SensorE
 
     // Estados
     private val _isMovingInVehicle = MutableStateFlow(false)
-    val isMovingInVehicle: StateFlow<Boolean> = _isMovingInVehicle
+    override val isMovingInVehicle: StateFlow<Boolean> = _isMovingInVehicle
 
     // Dados dos sensores
     private val _accelerometerData = MutableStateFlow(FloatArray(3))
@@ -65,9 +65,9 @@ class SensorDetectorImpl(private val context: Context) : SensorDetector, SensorE
     }
 
     // ======= Métodos públicos para o DotOverlayView =======
-    fun isGyroAvailable(): Boolean = gyroscope != null
-    fun isAccelerometerAvailable(): Boolean = accelerometer != null
-    fun getSensorData(): FloatArray {
+    override fun isGyroAvailable(): Boolean = gyroscope != null
+    override fun isAccelerometerAvailable(): Boolean = accelerometer != null
+    override fun getSensorData(): FloatArray {
         val accel = _accelerometerData.value
         val gyro = _gyroscopeData.value
         // Retorna X/Y do acelerômetro e Z do giroscópio
@@ -75,7 +75,7 @@ class SensorDetectorImpl(private val context: Context) : SensorDetector, SensorE
     }
 
     // ======= Iniciar e parar detecção =======
-    fun startDetection() {
+    override fun startDetection() {
         accelerometer?.let { sensorManager.registerListener(this, it, SensorManager.SENSOR_DELAY_GAME) }
         gyroscope?.let { sensorManager.registerListener(this, it, SensorManager.SENSOR_DELAY_GAME) }
         linearAcceleration?.let { sensorManager.registerListener(this, it, SensorManager.SENSOR_DELAY_GAME) }
@@ -88,7 +88,7 @@ class SensorDetectorImpl(private val context: Context) : SensorDetector, SensorE
         }
     }
 
-    fun stopDetection() {
+    override fun stopDetection() {
         sensorManager.unregisterListener(this)
         fusedLocationClient.removeLocationUpdates(locationCallback)
         _isMovingInVehicle.value = false
