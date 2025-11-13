@@ -31,10 +31,10 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             MotionCuesTheme {
-                val isEffectActive by dataStore.effectActiveFlow.collectAsState(initial = false)
-                val dotColor by dataStore.dotColorFlow.collectAsState(initial = Constants.DEFAULT_DOT_COLOR)
-                val dotCount by dataStore.dotCountFlow.collectAsState(initial = Constants.DEFAULT_DOT_COUNT)
-                val dotSize by dataStore.dotSizeFlow.collectAsState(initial = Constants.DEFAULT_DOT_SIZE)
+                val isEffectActive = dataStore.effectActiveFlow.collectAsState(initial = false)
+                val dotColor = dataStore.dotColorFlow.collectAsState(initial = Constants.DEFAULT_DOT_COLOR)
+                val dotCount = dataStore.dotCountFlow.collectAsState(initial = Constants.DEFAULT_DOT_COUNT)
+                val dotSize = dataStore.dotSizeFlow.collectAsState(initial = Constants.DEFAULT_DOT_SIZE)
 
                 var selectedScreen by remember { mutableStateOf(0) }
 
@@ -58,10 +58,10 @@ class MainActivity : ComponentActivity() {
                 ) { padding ->
                     Box(modifier = Modifier.fillMaxSize()) {
                         DotOverlayView(
-                            dotColor = dotColor.toLong(),
-                            dotCount = dotCount,
-                            dotSize = dotSize,
-                            isEffectActive = isEffectActive,
+                            dotColor = dotColor.value.toLong(),
+                            dotCount = dotCount.value,
+                            dotSize = dotSize.value,
+                            isEffectActive = isEffectActive.value,
                             sensorDetector = sensorDetector
                         )
 
