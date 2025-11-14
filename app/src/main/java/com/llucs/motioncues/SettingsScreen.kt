@@ -13,8 +13,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun SettingsScreen(
     dataStore: SettingsDataStore,
-    onNavigateHome: () -> Unit,
-    onNavigateAbout: () -> Unit
+    
 ) {
     val scope = rememberCoroutineScope()
 
@@ -24,14 +23,7 @@ fun SettingsScreen(
     val activationMode by dataStore.activationModeFlow.collectAsState("OFF")
 
     Scaffold(
-        bottomBar = {
-            BottomNavigationBar(
-                current = "settings",
-                onHome = onNavigateHome,
-                onSettings = {},
-                onAbout = onNavigateAbout
-            )
-        }
+        
     ) { padding ->
         Column(
             modifier = Modifier
