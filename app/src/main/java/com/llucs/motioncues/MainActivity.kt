@@ -12,6 +12,7 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.foundation.layout.padding
 import androidx.core.content.ContextCompat
 import com.llucs.motioncues.ui.theme.MotionCuesTheme
 import com.llucs.motioncues.SensorDetectorImpl
