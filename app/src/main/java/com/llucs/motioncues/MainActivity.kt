@@ -56,7 +56,7 @@ class MainActivity : ComponentActivity() {
                         }
                     }
                 ) { padding ->
-                    Box(modifier = Modifier.fillMaxSize()) {
+                    Box(modifier = Modifier.fillMaxSize().padding(padding)) {
                         DotOverlayView(
                             dotColor = dotColor.value.toLong(),
                             dotCount = dotCount.value,
