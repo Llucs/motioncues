@@ -1,6 +1,6 @@
 # MotionCues - Vehicle Motion Visualizer
 
-**MotionCues** é um aplicativo Android open-source projetado para reduzir o enjoo de movimento (cinetose) em veículos, fornecendo um efeito visual de "bolinhas que se movem" que ajuda o usuário a sincronizar a percepção visual com o movimento real.
+**MotionCues** é um aplicativo Android open-source projetado para reduzir o enjoo de movimento (cinetose) em veículos, fornecendo um efeito visual de "bolinhas que se movem" que ajuda o usuário a sincronizar a percepção visual com o movimento real. 
 
 Este projeto segue as diretrizes de design **Material 3** para uma experiência de usuário moderna e fluida.
 
