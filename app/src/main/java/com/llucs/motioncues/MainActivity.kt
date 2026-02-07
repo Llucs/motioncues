@@ -8,93 +8,87 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.core.content.ContextCompat
-import com.llucs.motioncues.ui.theme.MotionCuesTheme
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 
 class MainActivity : ComponentActivity() {
-
-    private lateinit var dataStore: SettingsDataStore
-    private lateinit var sensorDetector: SensorDetector
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        dataStore = SettingsDataStore(this)
-        sensorDetector = SensorDetector(this)
-
-        startMotionService()
+        val dataStore = SettingsDataStore(this)
 
         setContent {
             MotionCuesTheme {
-                val isEffectActive by dataStore.effectActiveFlow.collectAsState(initial = false)
-                val dotColor by dataStore.dotColorFlow.collectAsState(initial = Constants.DEFAULT_DOT_COLOR)
-                val dotCount by dataStore.dotCountFlow.collectAsState(initial = Constants.DEFAULT_DOT_COUNT)
-                val dotSize by dataStore.dotSizeFlow.collectAsState(initial = Constants.DEFAULT_DOT_SIZE)
+                val navController = rememberNavController()
 
-                var selectedScreen by remember { mutableStateOf(0) }
+                var dotColor by remember { mutableStateOf(0xFFFFFFFF) }
+                var dotCount by remember { mutableStateOf(10) }
+                var dotSize by remember { mutableStateOf(2) }
+                var isEffectActive by remember { mutableStateOf(false) }
+
+                LaunchedEffect(Unit) {
+                    dotColor = dataStore.getDotColor()
+                    dotCount = dataStore.getDotCount()
+                    dotSize = dataStore.getDotSize()
+                }
 
                 Scaffold(
                     bottomBar = {
                         NavigationBar {
                             NavigationBarItem(
-                                selected = selectedScreen == 0,
-                                onClick = { selectedScreen = 0 },
+                                selected = false,
+                                onClick = { navController.navigate("home") },
                                 icon = { Icon(Icons.Default.Home, contentDescription = "Início") },
                                 label = { Text("Início") }
                             )
                             NavigationBarItem(
-                                selected = selectedScreen == 1,
-                                onClick = { selectedScreen = 1 },
+                                selected = false,
+                                onClick = { navController.navigate("settings") },
                                 icon = { Icon(Icons.Default.Settings, contentDescription = "Configurações") },
-                                label = { Text("Configurações") }
+                                label = { Text("Config") }
+                            )
+                            NavigationBarItem(
+                                selected = false,
+                                onClick = { navController.navigate("about") },
+                                icon = { Icon(Icons.Default.Info, contentDescription = "Sobre") },
+                                label = { Text("Sobre") }
                             )
                         }
                     }
                 ) { padding ->
                     Box(modifier = Modifier.fillMaxSize()) {
+                        NavHost(navController = navController, startDestination = "home") {
+                            composable("home") {
+                                HomeScreen(
+                                    dataStore = dataStore,
+                                    onToggleEffect = { isEffectActive = !isEffectActive }
+                                )
+                            }
+                            composable("settings") {
+                                SettingsScreen(dataStore)
+                            }
+                            composable("about") {
+                                AboutScreen()
+                            }
+                        }
+
                         DotOverlayView(
-                            dotColor = dotColor.toLong(),
+                            dotColor = dotColor,
                             dotCount = dotCount,
                             dotSize = dotSize,
                             isEffectActive = isEffectActive,
-                            sensorDetector = sensorDetector
+                            sensorDetector = SensorDetector(this@MainActivity)
                         )
-
-                        when (selectedScreen) {
-                            0 -> HomeScreen(dataStore)
-                            1 -> SettingsScreen(dataStore)
-                        }
                     }
                 }
             }
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        sensorDetector.startDetection()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        sensorDetector.stopDetection()
-    }
-
-    private fun startMotionService() {
-        val intent = Intent(this, MotionService::class.java).apply {
-            action = Constants.ACTION_START_SERVICE
-        }
-        ContextCompat.startForegroundService(this, intent)
-    }
-
-    private fun stopMotionService() {
-        val intent = Intent(this, MotionService::class.java).apply {
-            action = Constants.ACTION_STOP_SERVICE
-        }
-        stopService(intent)
     }
 }

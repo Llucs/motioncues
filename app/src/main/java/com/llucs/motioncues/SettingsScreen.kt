@@ -1,8 +1,6 @@
 package com.llucs.motioncues
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -12,67 +10,69 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun SettingsScreen(
-    dataStore: SettingsDataStore,
-    onNavigateHome: () -> Unit,
-    onNavigateAbout: () -> Unit
+    dataStore: SettingsDataStore
 ) {
     val scope = rememberCoroutineScope()
 
-    val dotColor by dataStore.dotColorFlow.collectAsState(initial = Constants.DEFAULT_DOT_COLOR)
-    val dotCount by dataStore.dotCountFlow.collectAsState(initial = Constants.DEFAULT_DOT_COUNT)
-    val dotSize by dataStore.dotSizeFlow.collectAsState(initial = Constants.DEFAULT_DOT_SIZE)
-    val activationMode by dataStore.activationModeFlow.collectAsState("OFF")
+    var dotColor by remember { mutableStateOf(0xFFFFFFFF) }
+    var dotCount by remember { mutableStateOf(10) }
+    var dotSize by remember { mutableStateOf(2) }
 
-    Scaffold(
-        bottomBar = {
-            BottomNavigationBar(
-                current = "settings",
-                onHome = onNavigateHome,
-                onSettings = {},
-                onAbout = onNavigateAbout
-            )
-        }
-    ) { padding ->
-        Column(
-            modifier = Modifier
-                .padding(padding)
-                .padding(16.dp)
-                .verticalScroll(rememberScrollState())
+    LaunchedEffect(Unit) {
+        dotColor = dataStore.getDotColor()
+        dotCount = dataStore.getDotCount()
+        dotSize = dataStore.getDotSize()
+    }
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(20.dp),
+        verticalArrangement = Arrangement.spacedBy(18.dp)
+    ) {
+        Text("Configurações", style = MaterialTheme.typography.headlineSmall)
+
+        Text("Modo de ativação", style = MaterialTheme.typography.titleMedium)
+
+        Row(
+            Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Text("Configurações", style = MaterialTheme.typography.headlineMedium)
-            Spacer(Modifier.height(20.dp))
-
-            Text("Modo de ativação", style = MaterialTheme.typography.titleMedium)
-            Spacer(Modifier.height(10.dp))
-
-            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                Button(onClick = { scope.launch { dataStore.saveActivationMode("OFF") } }) {
-                    Text("Desligado")
-                }
-                Button(onClick = { scope.launch { dataStore.saveActivationMode("ON") } }) {
-                    Text("Ligado")
-                }
-                Button(onClick = { scope.launch { dataStore.saveActivationMode("AUTO") } }) {
-                    Text("Auto")
-                }
+            Button(onClick = { scope.launch { dataStore.saveActivationMode(ActivationMode.OFF.value) } }) {
+                Text("Desligado")
             }
-
-            Spacer(Modifier.height(20.dp))
-            Text("Quantidade de pontos: $dotCount", style = MaterialTheme.typography.titleMedium)
-            Slider(
-                value = dotCount.toFloat(),
-                onValueChange = { scope.launch { dataStore.saveDotCount(it.toInt()) } },
-                valueRange = 1f..50f,
-                steps = 48
-            )
-
-            Spacer(Modifier.height(20.dp))
-            Text("Tamanho dos pontos", style = MaterialTheme.typography.titleMedium)
-            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                Button(onClick = { scope.launch { dataStore.saveDotSize(1) } }) { Text("Peq") }
-                Button(onClick = { scope.launch { dataStore.saveDotSize(2) } }) { Text("Médio") }
-                Button(onClick = { scope.launch { dataStore.saveDotSize(3) } }) { Text("Grande") }
+            Button(onClick = { scope.launch { dataStore.saveActivationMode(ActivationMode.ON.value) } }) {
+                Text("Ligado")
             }
+            Button(onClick = { scope.launch { dataStore.saveActivationMode(ActivationMode.AUTO.value) } }) {
+                Text("Auto")
+            }
+        }
+
+        Divider()
+
+        Text("Quantidade de pontos: $dotCount", style = MaterialTheme.typography.titleMedium)
+        Slider(
+            value = dotCount.toFloat(),
+            onValueChange = { dotCount = it.toInt() },
+            valueRange = 1f..100f,
+            steps = 98
+        )
+        Button(onClick = { scope.launch { dataStore.saveDotCount(dotCount) } }) {
+            Text("Salvar quantidade")
+        }
+
+        Divider()
+
+        Text("Tamanho dos pontos: $dotSize", style = MaterialTheme.typography.titleMedium)
+        Slider(
+            value = dotSize.toFloat(),
+            onValueChange = { dotSize = it.toInt() },
+            valueRange = 1f..3f,
+            steps = 1
+        )
+        Button(onClick = { scope.launch { dataStore.saveDotSize(dotSize) } }) {
+            Text("Salvar tamanho")
         }
     }
 }
