@@ -6,6 +6,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -13,7 +14,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun HomeScreen(dataStore: SettingsDataStore) {
     val effectActive by dataStore.effectActiveFlow.collectAsState(initial = false)
-    val mode by dataStore.activationModeFlow.collectAsState(initial = "OFF")
+    val mode by dataStore.activationModeFlow.collectAsState(initial = Constants.DEFAULT_ACTIVATION_MODE)
 
     Column(
         Modifier.fillMaxSize().padding(16.dp),
@@ -24,7 +25,7 @@ fun HomeScreen(dataStore: SettingsDataStore) {
             Column(Modifier.padding(16.dp)) {
                 Text("Status do Efeito", style = MaterialTheme.typography.headlineMedium)
                 Spacer(Modifier.height(8.dp))
-                Text("Modo: $mode | Efeito: ${if (effectActive) "Ativo" else "Inativo"}")
+                Text("Modo: ${mode.uppercase()} | Efeito: ${if (effectActive) "Ativo" else "Inativo"}")
             }
         }
     }
